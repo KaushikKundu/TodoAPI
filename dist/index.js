@@ -22,14 +22,32 @@ app.post('/addUser', (req, res) => {
 app.post('/addTodo', (req, res) => {
     const { title, userId } = req.body;
     const todo = (0, app_1.addTodo)(title, userId);
-    console.log(todo);
-    res.status(200).json({ todo });
+    todo.then(data => {
+        res.status(200).json({ todo });
+    });
 });
 //read
 app.get('/getTodo', (req, res) => {
     const { userId } = req.body;
     const todos = (0, app_1.getTodo)(userId);
     res.status(200).json({ todos });
+});
+//update
+app.post('/updateTodo', (req, res) => {
+    const { id, title } = req.body;
+    const updatedTodo = (0, app_1.updateTodo)(id, title);
+    updatedTodo.then((results) => {
+        res.status(200).json({ results });
+    }).catch(err => {
+        res.json(err);
+    });
+});
+//delete todo
+app.delete('/deleteTodo', (req, res) => {
+    const { id } = req.body;
+    (0, app_1.deleteTodo)(id).then(data => {
+        res.status(200).json(data);
+    });
 });
 app.listen(port, () => {
     console.log("running");

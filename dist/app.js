@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTodo = exports.addTodo = exports.addUser = void 0;
+exports.deleteTodo = exports.updateTodo = exports.getTodo = exports.addTodo = exports.addUser = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 function addUser(name, email, password) {
@@ -49,3 +49,26 @@ function getTodo(userId) {
     });
 }
 exports.getTodo = getTodo;
+function updateTodo(id, title) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const todo = yield prisma.todo.update({
+            where: {
+                id
+            },
+            data: {
+                title
+            }
+        });
+        return todo;
+    });
+}
+exports.updateTodo = updateTodo;
+function deleteTodo(id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const todo = yield prisma.todo.delete({
+            where: { id }
+        });
+        return todo;
+    });
+}
+exports.deleteTodo = deleteTodo;

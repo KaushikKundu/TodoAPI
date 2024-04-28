@@ -29,3 +29,21 @@ export async function getTodo(userId:number) {
     })
     return todos;
 }
+export async function updateTodo(id:number,title:string) {
+    const todo = await prisma.todo.update({
+        where:{
+            id
+        },
+        data:{
+            title
+        }
+    })
+    return todo;
+
+}
+export async function deleteTodo(id:number) {
+    const todo = await prisma.todo.delete({
+        where:{id}
+    })
+    return todo
+}
